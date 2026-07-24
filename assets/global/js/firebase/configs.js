@@ -1,0 +1,1 @@
+var firebaseConfig = { "apiKey": "AIzaSyCmTNRy6QAvgWouAPukcupnrgysv0cQyJE", "authDomain": "laramin-99210.firebaseapp.com", "projectId": "laramin-99210", "storageBucket": "laramin-99210.firebasestorage.app", "messagingSenderId": "118330915856", "appId": "1:118330915856:web:be838cf07f656a9f44de95", "measurementId": "G-MWPV2VED4W" }

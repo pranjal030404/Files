@@ -1,0 +1,1 @@
+var firebaseConfig = {"apiKey":"---------------","authDomain":"------------------","projectId":"--------------","storageBucket":"flutter-prime-df1c5.appspot.com","messagingSenderId":"------------","appId":"-------------","measurementId":"----------------","serverKey":"-----------------"}
