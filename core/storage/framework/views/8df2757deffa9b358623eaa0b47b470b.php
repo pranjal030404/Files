@@ -1,6 +1,6 @@
 <?php $__env->startSection('content'); ?>
     <?php
-        $content = getContent('stories.content', true);
+        $content = getContent('blog.content', true);
     ?>
     <div class="section section--bg">
         <div class="section__head">
@@ -17,9 +17,9 @@
             </div>
         </div>
         <div class="container">
-            <?php echo $__env->make($activeTemplate . 'partials.stories_grid', ['stories' => $stories], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
-            <?php if($stories->hasPages()): ?>
-                <?php echo e(paginateLinks($stories)); ?>
+            <?php echo $__env->make($activeTemplate . 'partials.blog_grid', ['blogs' => $blogs], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+            <?php if($blogs->hasPages()): ?>
+                <?php echo e(paginateLinks($blogs)); ?>
 
             <?php endif; ?>
         </div>
@@ -32,4 +32,4 @@
     <?php endif; ?>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make($activeTemplate . 'layouts.frontend', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH /home/pranjal/Pranjal/vscode/Files/core/resources/views/templates/basic/stories.blade.php ENDPATH**/ ?>
+<?php echo $__env->make($activeTemplate . 'layouts.frontend', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH /home/pranjal/Pranjal/vscode/Files/core/resources/views/templates/basic/blog.blade.php ENDPATH**/ ?>
