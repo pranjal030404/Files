@@ -15,7 +15,8 @@ class PageBuilderController extends Controller
     {
         $pData = Page::where('tempname',activeTemplate())->get();
         $pageTitle = 'Manage Pages';
-        return view('admin.frontend.builder.pages', compact('pageTitle','pData'));
+        $sections = getPageSections(true);
+        return view('admin.frontend.builder.pages', compact('pageTitle','pData','sections'));
     }
 
     public function managePagesSave(Request $request){
@@ -34,6 +35,7 @@ class PageBuilderController extends Controller
         $page->tempname = activeTemplate();
         $page->name = $request->name;
         $page->slug = slug($request->slug);
+        $page->secs = $request->has('secs') ? json_encode($request->secs) : null;
         $page->save();
         $notify[] = ['success', 'New page added successfully'];
         return back()->withNotify($notify);

@@ -30,6 +30,9 @@
                     <li class="nav-item">
                         <a class="nav-link {{ menuActive('stories') }}" href="{{ route('stories') }}">@lang('Stories')</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ menuActive('blog') }}" href="{{ route('blog') }}">@lang('Blog')</a>
+                    </li>
 
                     @foreach ($pages as $page)
                         <li class="nav-item">

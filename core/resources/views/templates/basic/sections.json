@@ -117,6 +117,28 @@
             "modal": false
         }
     },
+    "blog": {
+        "builder": true,
+        "name": "Blog Section",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        },
+        "element": {
+            "images": {
+                "image": {
+                    "size": "728x465",
+                    "thumb": "310x205"
+                }
+            },
+            "title": "text",
+            "slug": "title",
+            "total_view": "text",
+            "description": "textarea-nic",
+            "modal": false,
+            "seo": true
+        }
+    },
     "testimonial": {
         "builder": true,
         "name": "Testimonial Section",
@@ -135,6 +157,26 @@
             "speech": "textarea",
             "star": "text",
             "modal": false
+        }
+    },
+    "team": {
+        "builder": true,
+        "no_selection": false,
+        "name": "Team Section",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        },
+        "element": {
+            "images": {
+                "image": {
+                    "size": "300x300"
+                }
+            },
+            "name": "text",
+            "designation": "text",
+            "speech": "textarea",
+            "modal": true
         }
     },
     "mobile_app": {

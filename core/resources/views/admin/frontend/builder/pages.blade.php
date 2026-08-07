@@ -72,6 +72,19 @@
                             </div>
                             <input type="text" class="form-control" name="slug" value="{{old('slug')}}" required>
                         </div>
+                        <div class="form-group">
+                            <label> @lang('Sections')</label>
+                            <div class="border rounded p-2" style="max-height:200px; overflow-y:auto;">
+                                @foreach ($sections as $key => $sec)
+                                    @if (!isset($sec['no_selection']) || !$sec['no_selection'])
+                                        <label class="d-block mb-1">
+                                            <input type="checkbox" name="secs[]" value="{{ $key }}"> {{ __($sec['name']) }}
+                                        </label>
+                                    @endif
+                                @endforeach
+                            </div>
+                            <small class="text-muted">@lang('Select the sections to show on this page. You can reorder or change them later from the Edit button.')</small>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn--primary w-100 h-45 disabled">@lang('Submit')</button>

@@ -30,6 +30,9 @@
                     <li class="nav-item">
                         <a class="nav-link <?php echo e(menuActive('stories')); ?>" href="<?php echo e(route('stories')); ?>"><?php echo app('translator')->get('Stories'); ?></a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo e(menuActive('blog')); ?>" href="<?php echo e(route('blog')); ?>"><?php echo app('translator')->get('Blog'); ?></a>
+                    </li>
 
                     <?php $__currentLoopData = $pages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $page): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <li class="nav-item">

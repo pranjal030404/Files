@@ -120,13 +120,31 @@ class SiteController extends Controller
         return back();
     }
 
+    public function blogs()
+    {
+        $pageTitle = 'Blog';
+        $blogs = Frontend::where('tempname', activeTemplateName())->where('data_keys', 'blog.element')->orderBy('id', 'desc')->paginate(getPaginate(12));
+        $page = Page::where('tempname', activeTemplate())->where('slug', 'blog')->firstOrFail();
+        $sections = $page->secs;
+
+        return view('Template::blog', compact('pageTitle', 'blogs', 'sections'));
+    }
+
     public function blogDetails($slug)
     {
-        $blog = Frontend::where('slug', $slug)->where('data_keys', 'blog.element')->firstOrFail();
+        $blog = Frontend::where('tempname', activeTemplateName())->where('slug', $slug)->where('data_keys', 'blog.element')->firstOrFail();
+        $dataValues = $blog->data_values;
+        $dataValues->total_view += 1;
+        $blog->data_values = $dataValues;
+        $blog->save();
+
         $pageTitle = $blog->data_values->title;
+
+        $popularBlogs = Frontend::where('tempname', activeTemplateName())->where('data_keys', 'blog.element')->where('slug', '!=', $slug)->orderBy('data_values->total_view', 'desc')->limit(5)->get();
+        $latestBlogs = Frontend::where('tempname', activeTemplateName())->where('data_keys', 'blog.element')->where('slug', '!=', $slug)->orderBy('id', 'desc')->limit(5)->get();
         $seoContents = $blog->seo_content;
         $seoImage = @$seoContents->image ? frontendImage('blog', $seoContents->image, getFileSize('seo'), true) : null;
-        return view('Template::blog_details', compact('blog', 'pageTitle', 'seoContents', 'seoImage'));
+        return view('Template::blog_details', compact('blog', 'pageTitle', 'popularBlogs', 'latestBlogs', 'seoContents', 'seoImage'));
     }
 
     public function cookieAccept()

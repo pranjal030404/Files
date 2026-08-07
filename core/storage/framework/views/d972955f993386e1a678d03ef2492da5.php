@@ -71,6 +71,20 @@
                             </div>
                             <input type="text" class="form-control" name="slug" value="<?php echo e(old('slug')); ?>" required>
                         </div>
+                        <div class="form-group">
+                            <label> <?php echo app('translator')->get('Sections'); ?></label>
+                            <div class="border rounded p-2" style="max-height:200px; overflow-y:auto;">
+                                <?php $__currentLoopData = $sections; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $sec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php if(!isset($sec['no_selection']) || !$sec['no_selection']): ?>
+                                        <label class="d-block mb-1">
+                                            <input type="checkbox" name="secs[]" value="<?php echo e($key); ?>"> <?php echo e(__($sec['name'])); ?>
+
+                                        </label>
+                                    <?php endif; ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </div>
+                            <small class="text-muted"><?php echo app('translator')->get('Select the sections to show on this page. You can reorder or change them later from the Edit button.'); ?></small>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn--primary w-100 h-45 disabled"><?php echo app('translator')->get('Submit'); ?></button>

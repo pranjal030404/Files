@@ -30,6 +30,8 @@ Route::controller('SiteController')->group(function () {
 
     Route::get('/cookie/accept', 'cookieAccept')->name('cookie.accept');
 
+    Route::get('blog', 'blogs')->name('blog');
+
     Route::get('blog/{slug}', 'blogDetails')->name('blog.details');
 
     Route::get('packages', 'packages')->name('packages');
