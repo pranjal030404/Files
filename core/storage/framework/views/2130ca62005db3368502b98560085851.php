@@ -30,9 +30,7 @@
     </div>
     <div class="navbar__right">
         <ul class="navbar__action-list">
-            <?php if(version_compare(gs('available_version'),systemDetails()['version'],'>')): ?>
-            <li><button type="button" class="primary--layer" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?php echo app('translator')->get('Update Available'); ?>"><a href="<?php echo e(route('admin.system.update')); ?>" class="primary--layer"><i class="las la-download text--warning"></i></a> </button></li>
-            <?php endif; ?>
+
             <li>
                 <button type="button" class="primary--layer" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?php echo app('translator')->get('Visit Website'); ?>">
                     <a href="<?php echo e(route('home')); ?>" target="_blank"><i class="las la-globe"></i></a>

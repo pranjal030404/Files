@@ -276,13 +276,8 @@ Route::middleware('admin')->group(function () {
 
     // System Information
     Route::controller('SystemController')->name('system.')->prefix('system')->group(function(){
-        Route::get('info','systemInfo')->name('info');
-        Route::get('server-info','systemServerInfo')->name('server.info');
         Route::get('optimize', 'optimize')->name('optimize');
         Route::get('optimize-clear', 'optimizeClear')->name('optimize.clear');
-        Route::get('system-update','systemUpdate')->name('update');
-        Route::post('system-update','systemUpdateProcess')->name('update.process');
-        Route::get('system-update/log','systemUpdateLog')->name('update.log');
     });
 
     // SEO

@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 function systemDetails() {
-    $system['name']          = 'matrilab';
-    $system['version']       = '2.3';
+    $system['name']          = 'humsaphar';
+    $system['version']       = '';
     $system['build_version'] = '5.1.16';
     return $system;
 }

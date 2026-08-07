@@ -488,40 +488,7 @@
             "updateAvailable"
         ],
         "submenu": [
-            {
-                "keyword": [
-                    "Application",
-                    "System",
-                    "Application management",
-                    "Application settings",
-                    "System information",
-                    "version",
-                    "laravel",
-                    "timezone"
-                ],
-                "title": "Application",
-                "route_name": "admin.system.info",
-                "menu_active": "admin.system.info"
-            },
-            {
-                "keyword": [
-                    "Server",
-                    "System",
-                    "Server management",
-                    "Server settings",
-                    "System information",
-                    "version",
-                    "php version",
-                    "software",
-                    "ip address",
-                    "server ip address",
-                    "server port",
-                    "http host"
-                ],
-                "title": "Server",
-                "route_name": "admin.system.server.info",
-                "menu_active": "admin.system.server.info"
-            },
+
             {
                 "keyword": [
                     "Cache",
@@ -534,23 +501,8 @@
                 "title": "Cache",
                 "route_name": "admin.system.optimize",
                 "menu_active": "admin.system.optimize"
-            },
-            {
-                "keyword": [
-                    "Update",
-                    "System",
-                    "Update management",
-                    "System update",
-                    "Software updates",
-                    "version update",
-                    "upgrade",
-                    "latest version"
-                ],
-                "title": "Update",
-                "route_name": "admin.system.update",
-                "menu_active": "admin.system.update*",
-                "counter": "updateAvailable"
             }
+
         ]
     },
     "report_and_request": {
