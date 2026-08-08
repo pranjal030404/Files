@@ -7,7 +7,7 @@
                 <div class="col-xl-8 col-lg-7">
                     <div class="blog-details">
                         <div class="blog-details__img">
-                            <img alt="@lang('Blog Image')" class="img-fluid w-100" src="{{ frontendImage('blog', $blog->data_values->image, '728x465') }}" />
+                            <img alt="@lang('Blog Image')" class="img-fluid w-100" src="{{ frontendImage('blog', @$blog->data_values->image, '728x465') }}" />
                         </div>
 
                         <div class="blog-details__body">
@@ -27,7 +27,7 @@
                             @foreach ($popularBlogs as $popular)
                                 <div class="blog-sidebar__card">
                                     <div class="blog-sidebar__card-thumb">
-                                        <a href="{{ route('blog.details', $popular->slug) }}"><img alt="@lang('Popular Post')" src="{{ frontendImage('blog', 'thumb_' . $popular->data_values->image, '310x205') }}" /></a>
+                                        <a href="{{ route('blog.details', $popular->slug) }}"><img alt="@lang('Popular Post')" src="{{ frontendImage('blog', 'thumb_' . @$popular->data_values->image, '310x205') }}" /></a>
                                     </div>
                                     <div class="blog-sidebar__card-content">
                                         <h6 class="blog-sidebar__card-title mt-0 mb-1"><a href="{{ route('blog.details', $popular->slug) }}">
@@ -49,7 +49,7 @@
                             @foreach ($latestBlogs as $latest)
                                 <div class="blog-sidebar__card">
                                     <div class="blog-sidebar__card-thumb">
-                                        <a href="{{ route('blog.details', $latest->slug) }}"><img alt="@lang('Latest Post')" src="{{ frontendImage('blog', 'thumb_' . $latest->data_values->image, '310x205') }}" /></a>
+                                        <a href="{{ route('blog.details', $latest->slug) }}"><img alt="@lang('Latest Post')" src="{{ frontendImage('blog', 'thumb_' . @$latest->data_values->image, '310x205') }}" /></a>
                                     </div>
                                     <div class="blog-sidebar__card-content">
                                         <h6 class="blog-sidebar__card-title mt-0 mb-1">

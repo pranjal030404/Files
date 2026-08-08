@@ -7,7 +7,7 @@
                 <div class="col-xl-8 col-lg-7">
                     <div class="blog-details">
                         <div class="blog-details__img">
-                            <img alt="@lang('Successful Story')" class="img-fluid w-100" src="{{ frontendImage('stories', $story->data_values->image, '860x570') }}" />
+                            <img alt="@lang('Successful Story')" class="img-fluid w-100" src="{{ frontendImage('stories', @$story->data_values->image, '860x570') }}" />
                         </div>
 
                         <div class="blog-details__body">
@@ -27,7 +27,7 @@
                             @foreach ($popularStories as $popular)
                                 <div class="blog-sidebar__card">
                                     <div class="blog-sidebar__card-thumb">
-                                        <a href="{{ route('story.details', $popular->slug) }}"><img alt="@lang('Popular Story')" src="{{ frontendImage('stories', 'thumb_' . $popular->data_values->image, '310x205') }}" /></a>
+                                        <a href="{{ route('story.details', $popular->slug) }}"><img alt="@lang('Popular Story')" src="{{ frontendImage('stories', 'thumb_' . @$popular->data_values->image, '310x205') }}" /></a>
                                     </div>
                                     <div class="blog-sidebar__card-content">
                                         <h6 class="blog-sidebar__card-title mt-0 mb-1"><a href="{{ route('story.details', $popular->slug) }}">
@@ -49,7 +49,7 @@
                             @foreach ($latestStories as $latest)
                                 <div class="blog-sidebar__card">
                                     <div class="blog-sidebar__card-thumb">
-                                        <a href="{{ route('story.details', $latest->slug) }}"><img alt="@lang('Latest Story')" src="{{ frontendImage('stories', 'thumb_' . $latest->data_values->image, '310x205') }}" /></a>
+                                        <a href="{{ route('story.details', $latest->slug) }}"><img alt="@lang('Latest Story')" src="{{ frontendImage('stories', 'thumb_' . @$latest->data_values->image, '310x205') }}" /></a>
                                     </div>
                                     <div class="blog-sidebar__card-content">
                                         <h6 class="blog-sidebar__card-title mt-0 mb-1">
