@@ -80,7 +80,6 @@
         </div>
         <div class="version-info text-center text-uppercase">
             <span class="text--primary">{{__(systemDetails()['name'])}}</span>
-            <span class="text--success">@lang('V'){{systemDetails()['version']}} </span>
         </div>
     </div>
 </div>
