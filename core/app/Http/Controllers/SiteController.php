@@ -133,6 +133,11 @@ class SiteController extends Controller
             $page->tempname = activeTemplate();
             $page->name = $name;
             $page->slug = $slug;
+        }
+        // Keep it default even when an admin added the row by hand, so it stays
+        // out of the footer's dynamic page list and can't be deleted out from
+        // under the route.
+        if ($page->is_default != Status::YES) {
             $page->is_default = Status::YES;
             $page->save();
         }
