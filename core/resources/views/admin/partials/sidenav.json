@@ -484,9 +484,6 @@
         "title": "Extra",
         "icon": "la la-server",
         "menu_active": "admin.system*",
-        "counters": [
-            "updateAvailable"
-        ],
         "submenu": [
 
             {
