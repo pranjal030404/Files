@@ -5258,6 +5258,7 @@ th.w-85 {
 .sidebar__menu .sidebar-dropdown>a {
   padding-right: 40px;
   position: relative;
+  cursor: pointer;
 }
 
 .sidebar__menu .sidebar-dropdown>a::before {

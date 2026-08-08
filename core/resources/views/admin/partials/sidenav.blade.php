@@ -16,7 +16,7 @@
                     @endif
                     @if(isset($data->submenu))
                         <li class="sidebar-menu-item sidebar-dropdown">
-                            <a href="javascript:void(0)" @isset($data->menu_active) class="{{ menuActive($data->menu_active, 3) }}" @endisset>
+                            <a @isset($data->menu_active) class="{{ menuActive($data->menu_active, 3) }}" @endisset>
                                 <i class="menu-icon {{ isset($data->icon) ? $data->icon : '' }}"></i>
                                 <span class="menu-title">{{ isset($data->title) ? __($data->title) : '' }}</span>
                                 @isset($data->counters)
