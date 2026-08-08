@@ -120,11 +120,30 @@ class SiteController extends Controller
         return back();
     }
 
+    /*
+     * Built-in pages (blog, stories) always have their own route, so their `pages`
+     * row only exists to hold the sections/SEO an admin attaches from the panel.
+     * Register it on first visit instead of failing when it was never seeded.
+     */
+    protected function defaultPage($slug, $name)
+    {
+        $page = Page::where('tempname', activeTemplate())->where('slug', $slug)->first();
+        if (!$page) {
+            $page = new Page();
+            $page->tempname = activeTemplate();
+            $page->name = $name;
+            $page->slug = $slug;
+            $page->is_default = Status::YES;
+            $page->save();
+        }
+        return $page;
+    }
+
     public function blogs()
     {
         $pageTitle = 'Blog';
         $blogs = Frontend::where('tempname', activeTemplateName())->where('data_keys', 'blog.element')->orderBy('id', 'desc')->paginate(getPaginate(12));
-        $page = Page::where('tempname', activeTemplate())->where('slug', 'blog')->firstOrFail();
+        $page = $this->defaultPage('blog', 'Blog');
         $sections = $page->secs;
 
         return view('Template::blog', compact('pageTitle', 'blogs', 'sections'));
@@ -214,7 +233,7 @@ class SiteController extends Controller
     {
         $pageTitle = 'Stories';
         $stories = Frontend::where('tempname', activeTemplateName())->where('data_keys', 'stories.element')->orderBy('id', 'desc')->paginate(getPaginate(28));
-        $page = Page::where('tempname', activeTemplate())->where('slug', 'stories')->firstOrFail();
+        $page = $this->defaultPage('stories', 'Stories');
         $sections = $page->secs;
 
         return view('Template::stories', compact('pageTitle', 'stories', 'sections'));
