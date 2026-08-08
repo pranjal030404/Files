@@ -34,6 +34,10 @@
                                     <a class="t-link t-link--base text--white d-inline-block" href="{{ route('stories') }}">
                                         @lang('Stories')</a>
                                 </li>
+                                <li class="list--column__item">
+                                    <a class="t-link t-link--base text--white d-inline-block" href="{{ route('blog') }}">
+                                        @lang('Blog')</a>
+                                </li>
                                 @foreach ($pages as $page)
                                     <li class="nav-item">
                                         <a class="t-link t-link--base text--white d-inline-block" href="{{ url($page->slug) }}">{{ __($page->name) }}</a>
