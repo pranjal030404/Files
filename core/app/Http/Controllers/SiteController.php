@@ -158,7 +158,7 @@ class SiteController extends Controller
     {
         $blog = Frontend::where('tempname', activeTemplateName())->where('slug', $slug)->where('data_keys', 'blog.element')->firstOrFail();
         $dataValues = $blog->data_values;
-        $dataValues->total_view += 1;
+        $dataValues->total_view = (int) @$dataValues->total_view + 1;
         $blog->data_values = $dataValues;
         $blog->save();
 
@@ -249,7 +249,7 @@ class SiteController extends Controller
     {
         $story = Frontend::where('tempname', activeTemplateName())->where('slug', $slug)->where('data_keys', 'stories.element')->firstOrFail();
         $dataValues = $story->data_values;
-        $dataValues->total_view += 1;
+        $dataValues->total_view = (int) @$dataValues->total_view + 1;
         $story->data_values = $dataValues;
         $story->save();
 

@@ -9,6 +9,7 @@ use App\Lib\RequiredConfig;
 use App\Models\Package;
 use App\Rules\FileTypeValidate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class GeneralSettingController extends Controller
 {
@@ -109,7 +110,8 @@ class GeneralSettingController extends Controller
             try {
                 fileUploader($request->logo,$path,filename:'logo.png');
             } catch (\Exception $exp) {
-                $notify[] = ['error', 'Couldn\'t upload the logo'];
+                Log::error('Logo upload failed: ' . $exp->getMessage(), ['path' => $path]);
+                $notify[] = ['error', 'Couldn\'t upload the logo: ' . $exp->getMessage()];
                 return back()->withNotify($notify);
             }
         }
@@ -120,7 +122,8 @@ class GeneralSettingController extends Controller
                     $path,
                     filename:'logo_dark.png');
             } catch (\Exception $exp) {
-                $notify[] = ['error', 'Couldn\'t upload the dark logo'];
+                Log::error('Dark logo upload failed: ' . $exp->getMessage(), ['path' => $path]);
+                $notify[] = ['error', 'Couldn\'t upload the dark logo: ' . $exp->getMessage()];
                 return back()->withNotify($notify);
             }
         }
@@ -129,7 +132,8 @@ class GeneralSettingController extends Controller
             try {
                 fileUploader($request->favicon,$path,filename:'favicon.png');
             } catch (\Exception $exp) {
-                $notify[] = ['error', 'Couldn\'t upload the favicon'];
+                Log::error('Favicon upload failed: ' . $exp->getMessage(), ['path' => $path]);
+                $notify[] = ['error', 'Couldn\'t upload the favicon: ' . $exp->getMessage()];
                 return back()->withNotify($notify);
             }
         }
