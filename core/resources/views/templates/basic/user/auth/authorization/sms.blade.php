@@ -77,8 +77,15 @@
 
                 var recaptchaVerifier = null;
                 var confirmationResult = null;
+                var sending = false;
 
                 function initRecaptcha() {
+                    if (recaptchaVerifier) {
+                        try {
+                            recaptchaVerifier.clear();
+                        } catch (e) {}
+                    }
+                    $('#firebase-recaptcha-container').empty();
                     recaptchaVerifier = new firebase.auth.RecaptchaVerifier('firebase-recaptcha-container', {
                         size: 'invisible'
                     }, phoneAuthApp);
@@ -86,21 +93,25 @@
                 }
 
                 function sendCode() {
+                    if (sending) {
+                        return;
+                    }
+                    sending = true;
                     phoneAuth.signInWithPhoneNumber('+' + mobileNumber, initRecaptcha())
                         .then(function(result) {
                             confirmationResult = result;
                         })
                         .catch(function(error) {
-                            notify('error', error.message);
+                            notify('error', (error.code ? error.code + ': ' : '') + error.message);
+                        })
+                        .finally(function() {
+                            sending = false;
                         });
                 }
 
                 sendCode();
 
                 $('#firebase-resend-link').on('click', function() {
-                    if (recaptchaVerifier) {
-                        recaptchaVerifier.clear();
-                    }
                     sendCode();
                     notify('success', "@lang('Verification code sent successfully')");
                 });
