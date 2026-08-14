@@ -32,10 +32,7 @@ class RegisterController extends Controller
     {
         $pageTitle = "Register";
         Intended::identifyRoute();
-        $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
-        $info = json_decode(json_encode(getIpInfo()), true);
-        $mobileCode = @implode(',', $info['code']);
-        return view('Template::user.auth.register', compact('pageTitle', 'countries', 'mobileCode'));
+        return view('Template::user.auth.register', compact('pageTitle'));
     }
 
     protected function validator(array $data)
@@ -52,11 +49,6 @@ class RegisterController extends Controller
             $agree = 'required';
         }
 
-        $countryData  = (array) json_decode(file_get_contents(resource_path('views/partials/country.json')));
-        $countryCodes = implode(',', array_keys($countryData));
-        $mobileCodes  = implode(',', array_column($countryData, 'dial_code'));
-        $countries    = implode(',', array_column($countryData, 'country'));
-
         $validate     = Validator::make($data, [
             'firstname' => 'required',
             'lastname'  => 'required',
@@ -68,14 +60,12 @@ class RegisterController extends Controller
             'state'        => 'nullable',
             'city'         => 'nullable',
             'address'      => 'nullable',
-            'country'      => 'required|in:' . $countries,
-            'country_code' => 'required|in:' . $countryCodes,
-            'mobile_code'  => 'required|in:' . $mobileCodes,
-            'mobile'       => ['required', 'regex:/^([0-9]*)$/', Rule::unique('users')->where('dial_code', $data['mobile_code'] ?? null)],
+            'mobile'       => ['required', 'digits:10', Rule::unique('users')->where('dial_code', '91')],
 
         ], [
             'firstname.required' => 'The first name field is required',
             'lastname.required' => 'The last name field is required',
+            'mobile.digits' => 'Mobile number must be 10 digits',
             'mobile.unique' => 'This mobile number is already registered',
         ]);
 
@@ -115,9 +105,9 @@ class RegisterController extends Controller
         $user->firstname    = $data['firstname'];
         $user->lastname     = $data['lastname'];
         $user->mobile       = $data['mobile'];
-        $user->dial_code    = $data['mobile_code'];
-        $user->country_code = $data['country_code'];
-        $user->country_name = $data['country'];
+        $user->dial_code    = '91';
+        $user->country_code = 'IN';
+        $user->country_name = 'India';
 
         $user->kv = gs('kv') ? Status::NO : Status::YES;
         $user->ev = gs('ev') ? Status::NO : Status::YES;
