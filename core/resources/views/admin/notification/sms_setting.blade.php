@@ -20,6 +20,7 @@
                                 <option value="twilio" @if(@gs('sms_config')->name == 'twilio') selected @endif>@lang('Twilio')</option>
                                 <option value="textMagic" @if(@gs('sms_config')->name == 'textMagic') selected @endif>@lang('Text Magic')</option>
                                 <option value="custom" @if(@gs('sms_config')->name == 'custom') selected @endif>@lang('Custom API')</option>
+                                <option value="firebase" @if(@gs('sms_config')->name == 'firebase') selected @endif>@lang('Firebase')</option>
                             </select>
                         </div>
                         <div class="row mt-4 d-none configForm" id="clickatell">
@@ -228,6 +229,42 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4 d-none configForm" id="firebase">
+                            <div class="col-md-12">
+                                <h6 class="mb-2">@lang('Firebase Configuration')</h6>
+                                <p class="small text-muted">@lang('Mobile verification will be handled by Firebase Phone Authentication on the browser (invisible reCAPTCHA + OTP). You must separately enable the "Phone" sign-in provider and add this site\'s domain to Authorized Domains in your Firebase console. Note: Firebase cannot be used to send general/bulk SMS notifications — it only supports the mobile verification screen.')</p>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>@lang('API Key') </label>
+                                    <input type="text" class="form-control" placeholder="@lang('API Key')" name="firebase_api_key" value="{{ @gs('sms_config')->firebase->api_key }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>@lang('Auth Domain') </label>
+                                    <input type="text" class="form-control" placeholder="@lang('Auth Domain')" name="firebase_auth_domain" value="{{ @gs('sms_config')->firebase->auth_domain }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>@lang('Project ID') </label>
+                                    <input type="text" class="form-control" placeholder="@lang('Project ID')" name="firebase_project_id" value="{{ @gs('sms_config')->firebase->project_id }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>@lang('App ID') </label>
+                                    <input type="text" class="form-control" placeholder="@lang('App ID')" name="firebase_app_id" value="{{ @gs('sms_config')->firebase->app_id }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>@lang('Messaging Sender ID') </label>
+                                    <input type="text" class="form-control" placeholder="@lang('Messaging Sender ID')" name="firebase_messaging_sender_id" value="{{ @gs('sms_config')->firebase->messaging_sender_id }}">
                                 </div>
                             </div>
                         </div>

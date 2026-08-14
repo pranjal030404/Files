@@ -219,7 +219,7 @@ class NotificationController extends Controller
 
     public function smsSettingUpdate(Request $request){
         $request->validate([
-            'sms_method' => 'required|in:clickatell,infobip,messageBird,nexmo,smsBroadcast,twilio,textMagic,custom',
+            'sms_method' => 'required|in:clickatell,infobip,messageBird,nexmo,smsBroadcast,twilio,textMagic,custom,firebase',
             'clickatell_api_key' => 'required_if:sms_method,clickatell',
             'message_bird_api_key' => 'required_if:sms_method,messageBird',
             'nexmo_api_key' => 'required_if:sms_method,nexmo',
@@ -235,6 +235,10 @@ class NotificationController extends Controller
             'from' => 'required_if:sms_method,twilio',
             'custom_api_method' => 'required_if:sms_method,custom|in:get,post',
             'custom_api_url' => 'required_if:sms_method,custom',
+            'firebase_api_key' => 'required_if:sms_method,firebase',
+            'firebase_auth_domain' => 'required_if:sms_method,firebase',
+            'firebase_project_id' => 'required_if:sms_method,firebase',
+            'firebase_app_id' => 'required_if:sms_method,firebase',
         ]);
 
         $data = [
@@ -277,6 +281,13 @@ class NotificationController extends Controller
                     'name'=>$request->custom_body_name ?? [],
                     'value'=>$request->custom_body_value ?? [],
                 ],
+            ],
+            'firebase'=>[
+                'api_key'=>$request->firebase_api_key,
+                'auth_domain'=>$request->firebase_auth_domain,
+                'project_id'=>$request->firebase_project_id,
+                'app_id'=>$request->firebase_app_id,
+                'messaging_sender_id'=>$request->firebase_messaging_sender_id,
             ],
         ];
         $general = gs();

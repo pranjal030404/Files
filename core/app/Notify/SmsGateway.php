@@ -110,6 +110,11 @@ class SmsGateway
         );
     }
 
+    public function firebase()
+    {
+        throw new \Exception('Firebase phone verification is handled client-side and does not support server-triggered SMS.');
+    }
+
     public function custom()
     {
         $credential = $this->config->custom;

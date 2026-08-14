@@ -8,6 +8,7 @@ use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\Controller;
 use App\Constants\Status;
 use App\Lib\Intended;
+use App\Lib\FirebaseAuthVerifier;
 
 class AuthorizationController extends Controller
 {
@@ -20,6 +21,11 @@ class AuthorizationController extends Controller
             return false;
         }
         return true;
+    }
+
+    protected function smsIsFirebase()
+    {
+        return @gs('sms_config')->name === 'firebase';
     }
 
     public function authorizeForm()
@@ -41,7 +47,7 @@ class AuthorizationController extends Controller
             return to_route('user.home');
         }
 
-        if (!$this->checkCodeValidity($user) && ($type != 'ban')) {
+        if (!$this->checkCodeValidity($user) && ($type != 'ban') && !($type == 'sms' && $this->smsIsFirebase())) {
             $user->ver_code = verificationCode(6);
             $user->ver_code_send_at = Carbon::now();
             $user->save();
@@ -64,10 +70,6 @@ class AuthorizationController extends Controller
             throw ValidationException::withMessages(['resend' => 'Please try after ' . $delay . ' seconds']);
         }
 
-        $user->ver_code = verificationCode(6);
-        $user->ver_code_send_at = Carbon::now();
-        $user->save();
-
         if ($type == 'email') {
             $type = 'email';
             $notifyTemplate = 'EVER_CODE';
@@ -75,6 +77,15 @@ class AuthorizationController extends Controller
             $type = 'sms';
             $notifyTemplate = 'SVER_CODE';
         }
+
+        if ($type == 'sms' && $this->smsIsFirebase()) {
+            $notify[] = ['success', 'Verification code sent successfully'];
+            return back()->withNotify($notify);
+        }
+
+        $user->ver_code = verificationCode(6);
+        $user->ver_code_send_at = Carbon::now();
+        $user->save();
 
         notify($user, $notifyTemplate, [
             'code' => $user->ver_code
@@ -121,6 +132,34 @@ class AuthorizationController extends Controller
             return $redirection ? $redirection : to_route('user.home');
         }
         throw ValidationException::withMessages(['code' => 'Verification code didn\'t match!']);
+    }
+
+    public function mobileVerificationFirebase(Request $request)
+    {
+        $request->validate([
+            'id_token' => 'required',
+        ]);
+
+        $user = auth()->user();
+
+        try {
+            $claims = FirebaseAuthVerifier::verify($request->id_token, gs('sms_config')->firebase->project_id);
+        } catch (\Exception $e) {
+            throw ValidationException::withMessages(['code' => 'Verification failed: ' . $e->getMessage()]);
+        }
+
+        $phone = ltrim($claims['phone_number'], '+');
+        if ($phone !== $user->mobileNumber) {
+            throw ValidationException::withMessages(['code' => 'Verified phone number does not match your account.']);
+        }
+
+        $user->sv = Status::VERIFIED;
+        $user->ver_code = null;
+        $user->ver_code_send_at = null;
+        $user->save();
+
+        $redirection = Intended::getRedirection();
+        return $redirection ? $redirection : to_route('user.home');
     }
 
     public function g2faVerification(Request $request)

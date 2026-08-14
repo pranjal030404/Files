@@ -45,6 +45,7 @@ Route::middleware('auth')->name('user.')->group(function () {
         Route::get('resend-verify/{type}', 'sendVerifyCode')->name('send.verify.code');
         Route::post('verify-email', 'emailVerification')->name('verify.email');
         Route::post('verify-mobile', 'mobileVerification')->name('verify.mobile');
+        Route::post('verify-mobile-firebase', 'mobileVerificationFirebase')->name('verify.mobile.firebase');
         Route::post('verify-g2fa', 'g2faVerification')->name('2fa.verify');
     });
 
