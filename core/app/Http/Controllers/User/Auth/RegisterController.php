@@ -15,6 +15,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
 class RegisterController extends Controller
@@ -31,7 +32,10 @@ class RegisterController extends Controller
     {
         $pageTitle = "Register";
         Intended::identifyRoute();
-        return view('Template::user.auth.register', compact('pageTitle'));
+        $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
+        $info = json_decode(json_encode(getIpInfo()), true);
+        $mobileCode = @implode(',', $info['code']);
+        return view('Template::user.auth.register', compact('pageTitle', 'countries', 'mobileCode'));
     }
 
     protected function validator(array $data)
@@ -48,6 +52,11 @@ class RegisterController extends Controller
             $agree = 'required';
         }
 
+        $countryData  = (array) json_decode(file_get_contents(resource_path('views/partials/country.json')));
+        $countryCodes = implode(',', array_keys($countryData));
+        $mobileCodes  = implode(',', array_column($countryData, 'dial_code'));
+        $countries    = implode(',', array_column($countryData, 'country'));
+
         $validate     = Validator::make($data, [
             'firstname' => 'required',
             'lastname'  => 'required',
@@ -59,10 +68,15 @@ class RegisterController extends Controller
             'state'        => 'nullable',
             'city'         => 'nullable',
             'address'      => 'nullable',
+            'country'      => 'required|in:' . $countries,
+            'country_code' => 'required|in:' . $countryCodes,
+            'mobile_code'  => 'required|in:' . $mobileCodes,
+            'mobile'       => ['required', 'regex:/^([0-9]*)$/', Rule::unique('users')->where('dial_code', $data['mobile_code'] ?? null)],
 
         ], [
             'firstname.required' => 'The first name field is required',
-            'lastname.required' => 'The last name field is required'
+            'lastname.required' => 'The last name field is required',
+            'mobile.unique' => 'This mobile number is already registered',
         ]);
 
         return $validate;
@@ -100,6 +114,10 @@ class RegisterController extends Controller
         $user->password     = Hash::make($data['password']);
         $user->firstname    = $data['firstname'];
         $user->lastname     = $data['lastname'];
+        $user->mobile       = $data['mobile'];
+        $user->dial_code    = $data['mobile_code'];
+        $user->country_code = $data['country_code'];
+        $user->country_name = $data['country'];
 
         $user->kv = gs('kv') ? Status::NO : Status::YES;
         $user->ev = gs('ev') ? Status::NO : Status::YES;

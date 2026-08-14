@@ -58,6 +58,30 @@
                                         <label class="form--label" for="email">@lang('E-Mail Address')</label>
                                     </div>
                                 </div>
+                                <div class="col-sm-6">
+                                    <div class="input--group">
+                                        <select class="select2 form-control form--control" id="country" name="country">
+                                            @foreach ($countries as $key => $country)
+                                                <option data-code="{{ $key }}"
+                                                    data-mobile_code="{{ $country->dial_code }}"
+                                                    value="{{ $country->country }}" @selected(old('country') == $key)>
+                                                    {{ __($country->country) }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label class="form--label" for="country">@lang('Country')</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="input--group">
+                                        <span class="input-group-text mobile-code"></span>
+                                        <input name="mobile_code" type="hidden">
+                                        <input name="country_code" type="hidden">
+                                        <label class="form--label" for="mobile">@lang('Mobile')</label>
+                                        <input class="form-control form--control" id="mobile" name="mobile"
+                                            type="text" value="{{ old('mobile') }}" placeholder="none" required>
+                                    </div>
+                                    <small class="text-danger mobileExist"></small>
+                                </div>
                                 <div class="col-sm-6 mt-4">
                                     <div class="input--group">
                                         <input class="form-control form--control @if (gs('secure_password')) secure-password @endif" id="password" name="password" type="password" placeholder="none" required>
@@ -162,6 +186,65 @@
         </script>
     @endpush
 @endif
+
+@push('style-lib')
+    <link href="{{ asset('assets/global/css/select2.min.css') }}" rel="stylesheet">
+@endpush
+
+@push('script-lib')
+    <script src="{{ asset('assets/global/js/select2.min.js') }}"></script>
+@endpush
+
+@push('script')
+    <script>
+        "use strict";
+        (function($) {
+
+            $('.select2').select2({
+                dropdownParent: $('.select2').parent()
+            });
+
+            @if ($mobileCode)
+                $(`option[data-code={{ $mobileCode }}]`).attr('selected', '');
+            @endif
+
+            function setMobileCode() {
+                $('input[name=mobile_code]').val($('select[name=country] :selected').data('mobile_code'));
+                $('input[name=country_code]').val($('select[name=country] :selected').data('code'));
+                $('.mobile-code').text('+' + $('select[name=country] :selected').data('mobile_code'));
+            }
+
+            $('select[name=country]').on('change', function() {
+                setMobileCode();
+                var value = $('[name=mobile]').val();
+                checkMobile(value);
+            });
+
+            setMobileCode();
+
+            $('#mobile').on('focusout', function(e) {
+                checkMobile($(this).val());
+            });
+
+            function checkMobile(value) {
+                var url = '{{ route('user.checkUser') }}';
+                var token = '{{ csrf_token() }}';
+                var data = {
+                    mobile: value,
+                    mobile_code: $('.mobile-code').text().substr(1),
+                    _token: token
+                }
+                $.post(url, data, function(response) {
+                    if (response.data != false) {
+                        $('.mobileExist').text(`${response.field} already exist`);
+                    } else {
+                        $('.mobileExist').text('');
+                    }
+                });
+            }
+        })(jQuery);
+    </script>
+@endpush
 
 @if (!gs('registration'))
     @push('style')

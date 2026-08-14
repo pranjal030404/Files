@@ -48,11 +48,17 @@
 @endsection
 
 @if (@gs('sms_config')->name == 'firebase')
-    @push('script-lib')
-        <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
-    @endpush
     @push('script')
+        {{-- The site already vendors Firebase v7.23.0 locally for push notifications
+             (assets/global/js/firebase/firebase-app.js), loaded earlier in the layout
+             whenever push notifications are enabled. Loading a different SDK version here
+             would stomp on the shared global `firebase` object, so only pull the core app
+             script when it isn't already present, and pin the auth script to the exact
+             same version the vendored core uses. --}}
+        @unless (gs('pn'))
+            <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js"></script>
+        @endunless
+        <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
         <script>
             (function($) {
                 "use strict";
