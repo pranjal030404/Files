@@ -11,6 +11,7 @@ use App\Models\Package;
 use App\Models\Page;
 use App\Models\PhysicalAttribute;
 use App\Models\ReligionInfo;
+use App\Models\CasteInfo;
 use App\Models\SupportMessage;
 use App\Models\SupportTicket;
 use App\Models\User;
@@ -275,6 +276,7 @@ class SiteController extends Controller
         $pageTitle       = 'Searched Members';
         $maritalStatuses = MaritalStatus::all();
         $religions       = ReligionInfo::get();
+        $castes          = CasteInfo::get();
         $countryData     = (array)json_decode(file_get_contents(resource_path('views/partials/country.json')));
         $countries       = array_column($countryData, 'country');
 
@@ -284,7 +286,7 @@ class SiteController extends Controller
         if ($height['min'] == $height['max']) {
             $height['min'] = 0;
         }
-        return view('Template::user.members.list', compact('pageTitle', 'user', 'members', 'maritalStatuses', 'religions', 'countries', 'height'));
+        return view('Template::user.members.list', compact('pageTitle', 'user', 'members', 'maritalStatuses', 'religions', 'castes', 'countries', 'height'));
     }
 
     protected function userData()
@@ -338,6 +340,12 @@ class SiteController extends Controller
         if ($request->religion) {
             $query = $query->whereHas('basicInfo', function ($q) use ($request) {
                 $q->where('religion', $request->religion);
+            });
+        }
+
+        if ($request->caste) {
+            $query = $query->whereHas('basicInfo', function ($q) use ($request) {
+                $q->where('caste', $request->caste);
             });
         }
 

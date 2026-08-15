@@ -45,6 +45,19 @@
                          </div>
                          <div class="col-sm-6">
                              <div class="input--group">
+                                 <select class="form-select form-control form--control" name="caste">
+                                     <option value="">@lang('Select One')</option>
+                                     @foreach ($castes as $caste)
+                                         <option value="{{ $caste->name }}" @selected(old('caste', @$user->basicInfo->caste) == $caste->name)>
+                                             {{ __($caste->name) }}
+                                         </option>
+                                     @endforeach
+                                 </select>
+                                 <label class="form--label">@lang('Caste')</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-6">
+                             <div class="input--group">
                                  <select class="form-select form-control form--control" name="gender">
                                      <option value="">@lang('Select')</option>
                                      <option value="m" @selected(old('gender', @$user->basicInfo->gender) == 'm')>@lang('Male')</option>
@@ -229,6 +242,7 @@
 
              let basicForm = $('.basic-info');
              let religion = "{{ @$user->basicInfo->religion }}";
+             let caste = "{{ @$user->basicInfo->caste }}";
              let gender = "{{ @$user->basicInfo->gender }}";
              let maritalStatus = "{{ @$user->basicInfo->marital_status }}";
              let smokingStatus = "{{ @$user->basicInfo->smoking_status }}";
@@ -236,6 +250,7 @@
              let permanentCountry = "{{ @$user->basicInfo->permanent_address->country }}";
 
              basicForm.find('[name=religion]').val(religion);
+             basicForm.find('[name=caste]').val(caste);
              basicForm.find('[name=gender]').val(gender);
              basicForm.find('[name=marital_status]').val(maritalStatus);
              basicForm.find('[name=smoking_status]').val(smokingStatus);

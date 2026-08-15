@@ -74,6 +74,18 @@
 
                                 <div class="col-sm-12 mt-4">
                                     <div class="input--group">
+                                        <select class="form-select form-control form--control" name="caste">
+                                            <option value="">@lang('All')</option>
+                                            @foreach ($castes as $caste)
+                                                <option value="{{ $caste->name }}">{{ __($caste->name) }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label class="form--label">@lang('Caste')</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 mt-4">
+                                    <div class="input--group">
                                         <select class="form-select form-control form--control" name="country">
                                             <option value="">@lang('All')</option>
                                             @foreach ($countries as $country)

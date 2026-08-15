@@ -10,6 +10,7 @@
                             <th class="text-nowrap">@lang('Name')</th>
                             <th class="text-nowrap">@lang('Age')</th>
                             <th class="text-nowrap">@lang('Religion')</th>
+                            <th class="text-nowrap">@lang('Caste')</th>
                             <th class="text-nowrap">@lang('Country')</th>
                             <th class="text-nowrap">@lang('Action')</th>
                         </tr>
@@ -35,6 +36,7 @@
                             </td>
                             <td>{{ $shortlist->profile->age() }}</td>
                             <td>{{ __(@$shortlist->profile->basicInfo->religion ?? 'N/A') }}</td>
+                            <td>{{ __(@$shortlist->profile->basicInfo->caste ?? 'N/A') }}</td>
                             <td>{{ __(@$shortlist->profile->basicInfo->present_address->country ?? 'N/A') }}</td>
                             <td>
                                 <div class="d-flex align-items-center justify-content-end gap-2">

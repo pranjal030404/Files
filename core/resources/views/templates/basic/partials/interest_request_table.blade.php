@@ -7,6 +7,7 @@
                     <th>@lang('Name')</th>
                     <th>@lang('Age')</th>
                     <th>@lang('Religion')</th>
+                    <th>@lang('Caste')</th>
                     <th>@lang('Country')</th>
                     <th>@lang('Status')</th>
                     <th>@lang('Action')</th>
@@ -35,6 +36,7 @@
                     </td>
                     <td>{{ $interest->user->age() }}</td>
                     <td>{{ __(@$interest->user->basicInfo->religion ?? 'N/A') }}</td>
+                    <td>{{ __(@$interest->user->basicInfo->caste ?? 'N/A') }}</td>
                     <td>{{ __(@$interest->user->basicInfo->present_address->country ?? 'N/A') }}</td>
                     <td>
                         @php
