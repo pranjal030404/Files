@@ -29,6 +29,13 @@
             </span>
         </div>
         <div class="row member-details">
+            <label class="col-5"><span>@lang('Caste')</span>
+            </label>
+            <span class="col-7">
+                {{ __(@$member->basicInfo->caste ?? 'N/A') }}
+            </span>
+        </div>
+        <div class="row member-details">
             <label class="col-5"><span>@lang('Languages')</span>
             </label>
             <span class="col-7">

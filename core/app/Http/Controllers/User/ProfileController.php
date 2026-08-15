@@ -8,6 +8,7 @@ use App\Models\BloodGroup;
 use App\Models\CareerInfo;
 use App\Models\MaritalStatus;
 use App\Models\ReligionInfo;
+use App\Models\CasteInfo;
 use App\Models\PartnerExpectation;
 use App\Models\PhysicalAttribute;
 use App\Models\FamilyInfo;
@@ -26,11 +27,12 @@ class ProfileController extends Controller
         $userId = auth()->id();
         $user = User::with('basicInfo', 'partnerExpectation', 'physicalAttributes', 'family', 'careerInfo', 'educationInfo')->findOrFail($userId);
         $religions = ReligionInfo::get();
+        $castes = CasteInfo::get();
         $maritalStatuses = MaritalStatus::get();
         $bloodGroups = BloodGroup::get();
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
 
-        return view('Template::user.profile_setting.index', compact('pageTitle', 'user', 'religions', 'maritalStatuses', 'countries', 'bloodGroups'));
+        return view('Template::user.profile_setting.index', compact('pageTitle', 'user', 'religions', 'castes', 'maritalStatuses', 'countries', 'bloodGroups'));
     }
 
     public function updateProfile(Request $request)
@@ -58,6 +60,7 @@ class ProfileController extends Controller
             'lastname'            => 'required',
             'birth_date'          => 'required|date_format:Y-m-d|before:today',
             'religion'            => 'required|exists:religion_infos,name',
+            'caste'               => 'nullable|exists:caste_infos,name',
             'gender'              => 'required|in:m,f',
             'financial_condition' => 'required|string',
             'smoking_status'      => 'required|in:0,1',
@@ -80,6 +83,7 @@ class ProfileController extends Controller
             'birth_date.required'          => 'Birth date is required',
             'birth_date.before'            => 'Birth date can\'t be greater than today',
             'religion.required'            => 'Religion is required',
+            'caste.exists'                  => 'Select a valid caste',
             'gender.required'              => 'Gender field is required',
             'gender.in:m,f'                => 'Gender should be male or female only',
             'profession.required'          => 'Profession field is required',
@@ -118,6 +122,7 @@ class ProfileController extends Controller
         $basicInfo->profession          = $request->profession;
         $basicInfo->financial_condition = $request->financial_condition;
         $basicInfo->religion            = $request->religion;
+        $basicInfo->caste               = $request->caste;
         $basicInfo->smoking_status      = $request->smoking_status;
         $basicInfo->drinking_status     = $request->drinking_status;
         $basicInfo->birth_date          = $request->birth_date;
@@ -152,6 +157,7 @@ class ProfileController extends Controller
             'max_weight'          => 'nullable|numeric|gt:0',
             'marital_status'      => 'nullable',
             'religion'            => 'nullable|exists:religion_infos,name',
+            'caste'               => 'nullable|exists:caste_infos,name',
             'complexion'          => 'nullable|string|max:255',
             'smoking_status'      => 'nullable|in:0,1,2',
             'drinking_status'     => 'nullable|in:0,1,2',
@@ -209,6 +215,7 @@ class ProfileController extends Controller
         $partnerExpectation->max_weight = $request->max_weight;
         $partnerExpectation->marital_status = $request->marital_status;
         $partnerExpectation->religion = $request->religion;
+        $partnerExpectation->caste = $request->caste;
         $partnerExpectation->complexion = $request->complexion;
         $partnerExpectation->smoking_status = $request->smoking_status ?? 0;
         $partnerExpectation->drinking_status = $request->drinking_status ?? 0;

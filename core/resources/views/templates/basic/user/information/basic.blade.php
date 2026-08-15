@@ -87,6 +87,20 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="input--group">
+                                        <select class="form-select form-control form--control" name="caste">
+                                            <option value="">@lang('Select One')</option>
+                                            @foreach ($castes as $caste)
+                                                <option value="{{ $caste->name }}"
+                                                    @if (old('caste') == $caste->name) selected @endif>
+                                                    {{ __($caste->name) }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <label class="form--label">@lang('Caste')</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="input--group">
                                         <select class="form-select form-control form--control" name="gender" required>
                                             <option value="">@lang('Select One')</option>
                                             <option value="m" @if (old('gender') == 'm') selected @endif>

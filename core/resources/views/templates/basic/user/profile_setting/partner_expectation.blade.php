@@ -89,6 +89,17 @@
                          </div>
                          <div class="col-sm-6">
                              <div class="input--group">
+                                 <select class="form-select form-control form--control" name="caste">
+                                     <option value="">@lang('Select One')</option>
+                                     @foreach ($castes as $caste)
+                                         <option value="{{ $caste->name }}">{{ __($caste->name) }}</option>
+                                     @endforeach
+                                 </select>
+                                 <label class="form--label">@lang('Caste')</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-6">
+                             <div class="input--group">
                                  <input class="form-control form--control" name="complexion" type="text" value="{{ @$user->partnerExpectation->complexion }}">
                                  <label class="form--label">@lang('Complexion')</label>
                              </div>
@@ -184,6 +195,7 @@
 
          let partnerExpForm = $('.partner-expectation-form');
          let religion = "{{ @$user->partnerExpectation->religion }}";
+         let caste = "{{ @$user->partnerExpectation->caste }}";
          let gender = "{{ @$user->partnerExpectation->gender }}";
          let maritalStatus = "{{ @$user->partnerExpectation->marital_status }}";
          let smokingStatus = "{{ @$user->partnerExpectation->smoking_status }}";
@@ -191,6 +203,7 @@
          let country = "{{ @$user->partnerExpectation->country }}";
 
          partnerExpForm.find('[name=religion]').val(religion);
+         partnerExpForm.find('[name=caste]').val(caste);
          partnerExpForm.find('[name=gender]').val(gender);
          partnerExpForm.find('[name=marital_status]').val(maritalStatus);
          partnerExpForm.find('[name=smoking_status]').val(smokingStatus);

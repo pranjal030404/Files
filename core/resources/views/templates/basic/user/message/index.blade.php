@@ -119,6 +119,12 @@
                                                         </div>
                                                     </div>
                                                     <div class="row text-start">
+                                                        <div class="col-6 chatbox-header__item">@lang('Caste'):</div>
+                                                        <div class="col-6 chatbox-header__item">
+                                                            {{ __(@$opponent->basicInfo->caste ?? 'N/A') }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-start">
                                                         <div class="col-6 chatbox-header__item">@lang('City'):</div>
                                                         <div class="col-6 chatbox-header__item">
                                                             {{ __(@$opponent->basicInfo->present_address->city) }}

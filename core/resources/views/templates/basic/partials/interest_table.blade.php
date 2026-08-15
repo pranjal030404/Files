@@ -7,6 +7,7 @@
                 <th>@lang('Name')</th>
                 <th>@lang('Age')</th>
                 <th>@lang('Religion')</th>
+                <th>@lang('Caste')</th>
                 <th>@lang('Status')</th>
                 <th>@lang('Action')</th>
             </tr>
@@ -34,6 +35,7 @@
                 </td>
                 <td>{{ $interest->profile->age() }}</td>
                 <td>{{ __(@$interest->profile->basicInfo->religion ?? 'N/A') }}</td>
+                <td>{{ __(@$interest->profile->basicInfo->caste ?? 'N/A') }}</td>
                 <td>
                     @php
                         echo $interest->statusBadge;

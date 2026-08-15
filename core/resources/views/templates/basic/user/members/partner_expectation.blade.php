@@ -9,6 +9,13 @@
                 </span>
             </div>
             <div class="row member-details">
+                <label class="col-5"><span>@lang('Caste')</span>
+                </label>
+                <span class="col-7">
+                    {{ $member->partnerExpectation->caste ? __($member->partnerExpectation->caste) : 'N/A' }}
+                </span>
+            </div>
+            <div class="row member-details">
                 <label class="col-5"><span>@lang('Marital Status')</span>
                 </label>
                 <span class="col-7">

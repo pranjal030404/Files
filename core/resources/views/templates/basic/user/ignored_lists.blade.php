@@ -10,6 +10,7 @@
                         <th>@lang('Name')</th>
                         <th>@lang('Age')</th>
                         <th>@lang('Religion')</th>
+                        <th>@lang('Caste')</th>
                         <th>@lang('Country')</th>
                         <th>@lang('Action')</th>
                     </tr>
@@ -33,6 +34,7 @@
                         </td>
                         <td>{{ $ignoredList->profile->age() }}</td>
                         <td>{{ __(@$ignoredList->profile->basicInfo->religion ?? 'N/A') }}</td>
+                        <td>{{ __(@$ignoredList->profile->basicInfo->caste ?? 'N/A') }}</td>
                         <td>{{ __(@$ignoredList->profile->basicInfo->present_address->country ?? 'N/A') }}</td>
                         <td>
                             <a class="icon-anchor btn--danger remove" data-action="{{ route('user.ignored.remove', $ignoredList->id) }}" data-bs-title="@lang('Remove from ignored list')" data-bs-toggle="tooltip" href="javascript:void(0)"><i class="las la-times"></i></a>

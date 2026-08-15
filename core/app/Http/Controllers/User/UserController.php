@@ -18,6 +18,7 @@ use App\Models\PartnerExpectation;
 use App\Models\PhysicalAttribute;
 use App\Models\PurchaseHistory;
 use App\Models\ReligionInfo;
+use App\Models\CasteInfo;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -167,6 +168,7 @@ class UserController extends Controller {
         if (!$totalStep) {
             $pageTitle               = 'Basic Information';
             $data['religions']       = ReligionInfo::get();
+            $data['castes']          = CasteInfo::get();
             $data['maritalStatuses'] = MaritalStatus::get();
             $data['countries']       = json_decode(file_get_contents(resource_path('views/partials/country.json')));
             $data['user']            = $user;
@@ -192,6 +194,7 @@ class UserController extends Controller {
             $data['countries']       = json_decode(file_get_contents(resource_path('views/partials/country.json')));
             $data['maritalStatuses'] = MaritalStatus::get();
             $data['religions']       = ReligionInfo::get();
+            $data['castes']          = CasteInfo::get();
             $view                    = 'user.information.partner_expectation';
         }
 
@@ -357,6 +360,7 @@ class UserController extends Controller {
         $rules = [
             'birth_date'          => 'required|date_format:Y-m-d|before:today',
             'religion'            => 'required|exists:religion_infos,name',
+            'caste'               => 'nullable|exists:caste_infos,name',
             'gender'              => 'required|in:m,f',
             'profession'          => 'required|string',
             'financial_condition' => 'required|string',
@@ -382,6 +386,7 @@ class UserController extends Controller {
             'birth_date.required'          => 'Birth date is required',
             'birth_date.before'            => 'Birth date can\'t be greater than today',
             'religion.required'            => 'Religion is required',
+            'caste.exists'                  => 'Select a valid caste',
             'gender.required'              => 'Gender field is required',
             'gender.in:m,f'                => 'Gender should be male or female only',
             'profession.required'          => 'Profession field is required',
@@ -431,6 +436,7 @@ class UserController extends Controller {
         $basicInfo->profession          = $request->profession;
         $basicInfo->financial_condition = $request->financial_condition;
         $basicInfo->religion            = $request->religion;
+        $basicInfo->caste               = $request->caste;
         $basicInfo->smoking_status      = $request->smoking_status;
         $basicInfo->drinking_status     = $request->drinking_status;
         $basicInfo->birth_date          = $request->birth_date;
@@ -694,6 +700,7 @@ class UserController extends Controller {
                 'max_weight'          => 'nullable|numeric|gt:0',
                 'marital_status'      => 'nullable',
                 'religion'            => 'nullable|exists:religion_infos,name',
+                'caste'               => 'nullable|exists:caste_infos,name',
                 'complexion'          => 'nullable|string|max:255',
                 'smoking_status'      => 'nullable|in:1,2',
                 'drinking_status'     => 'nullable|in:1,2',
@@ -746,6 +753,7 @@ class UserController extends Controller {
             $partnerExpectation->max_weight          = $request->max_weight;
             $partnerExpectation->marital_status      = $request->marital_status;
             $partnerExpectation->religion            = $request->religion;
+            $partnerExpectation->caste               = $request->caste;
             $partnerExpectation->complexion          = $request->complexion;
             $partnerExpectation->smoking_status      = $request->smoking_status ?? 0;
             $partnerExpectation->drinking_status     = $request->drinking_status ?? 0;

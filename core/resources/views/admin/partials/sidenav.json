@@ -45,6 +45,7 @@
         "icon": "las la-user-tag",
         "menu_active": [
             "admin.religion*",
+            "admin.caste*",
             "admin.blood.group*",
             "admin.marital.status*"
         ],
@@ -57,6 +58,15 @@
                 "title": "Religion",
                 "route_name": "admin.religion.all",
                 "menu_active": "admin.religion*"
+            },
+            {
+                "keyword": [
+                    "User Attribute",
+                    "Caste"
+                ],
+                "title": "Caste",
+                "route_name": "admin.caste.all",
+                "menu_active": "admin.caste*"
             },
             {
                 "keyword": [

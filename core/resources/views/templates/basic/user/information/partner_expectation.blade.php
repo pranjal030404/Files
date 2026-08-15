@@ -86,6 +86,16 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="input--group">
+                                        <select class="form-select form-control form--control" name="caste">
+                                            <option value="">@lang('Caste')</option>
+                                            @foreach ($castes as $caste)
+                                                <option value="{{ $caste->name }}" @selected(old('caste' == $caste->name))>{{ __($caste->name) }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="input--group">
                                         <input class="form-control form--control" name="complexion" type="text" value="{{ old('complexion') }}">
                                         <label class="form--label">@lang('Complexion')</label>
                                     </div>

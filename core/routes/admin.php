@@ -62,6 +62,13 @@ Route::middleware('admin')->group(function () {
         Route::post('delete/{id?}', 'delete')->name('delete');
     });
 
+    // Caste
+    Route::controller('CasteController')->prefix('caste')->name('caste.')->group(function () {
+        Route::get('/', 'index')->name('all');
+        Route::post('save/{id?}', 'save')->name('save');
+        Route::post('delete/{id?}', 'delete')->name('delete');
+    });
+
     // Blood Group
     Route::controller('BloodGroupController')->prefix('blood-group')->name('blood.group.')->group(function () {
         Route::get('/', 'index')->name('all');
