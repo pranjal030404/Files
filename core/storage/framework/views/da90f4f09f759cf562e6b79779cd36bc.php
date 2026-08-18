@@ -35,6 +35,10 @@
                                     <a class="t-link t-link--base text--white d-inline-block" href="<?php echo e(route('stories')); ?>">
                                         <?php echo app('translator')->get('Stories'); ?></a>
                                 </li>
+                                <li class="list--column__item">
+                                    <a class="t-link t-link--base text--white d-inline-block" href="<?php echo e(route('blog')); ?>">
+                                        <?php echo app('translator')->get('Blog'); ?></a>
+                                </li>
                                 <?php $__currentLoopData = $pages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $page): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <li class="nav-item">
                                         <a class="t-link t-link--base text--white d-inline-block" href="<?php echo e(url($page->slug)); ?>"><?php echo e(__($page->name)); ?></a>

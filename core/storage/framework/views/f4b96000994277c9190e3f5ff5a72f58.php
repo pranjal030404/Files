@@ -16,7 +16,7 @@
                     <?php endif; ?>
                     <?php if(isset($data->submenu)): ?>
                         <li class="sidebar-menu-item sidebar-dropdown">
-                            <a href="javascript:void(0)" <?php if(isset($data->menu_active)): ?> class="<?php echo e(menuActive($data->menu_active, 3)); ?>" <?php endif; ?>>
+                            <a <?php if(isset($data->menu_active)): ?> class="<?php echo e(menuActive($data->menu_active, 3)); ?>" <?php endif; ?>>
                                 <i class="menu-icon <?php echo e(isset($data->icon) ? $data->icon : ''); ?>"></i>
                                 <span class="menu-title"><?php echo e(isset($data->title) ? __($data->title) : ''); ?></span>
                                 <?php if(isset($data->counters)): ?>
@@ -80,7 +80,6 @@
         </div>
         <div class="version-info text-center text-uppercase">
             <span class="text--primary"><?php echo e(__(systemDetails()['name'])); ?></span>
-            <span class="text--success"><?php echo app('translator')->get('V'); ?><?php echo e(systemDetails()['version']); ?> </span>
         </div>
     </div>
 </div>

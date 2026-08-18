@@ -43,7 +43,7 @@
                                             @foreach ($countries as $key => $country)
                                                 <option data-code="{{ $key }}"
                                                     data-mobile_code="{{ $country->dial_code }}"
-                                                    value="{{ $country->country }}" @selected(old('country') == $key)>
+                                                    value="{{ $country->country }}" @selected(old('country') == $key || (!old('country') && $key == 'IN'))>
                                                     {{ __($country->country) }}</option>
                                             @endforeach
                                         </select>
@@ -213,9 +213,9 @@
                                     <div class="input--group">
                                         <select class="select2 form-control form--control" name="per_country" required>
                                             <option value="">@lang('Select One')</option>
-                                            @foreach ($countries as $country)
+                                            @foreach ($countries as $key => $country)
                                                 <option value="{{ $country->country }}"
-                                                    @if (old('per_country') == $country->country) selected @endif>
+                                                    @if (old('per_country') == $country->country || (!old('per_country') && $key == 'IN')) selected @endif>
                                                     {{ __($country->country) }}
                                                 </option>
                                             @endforeach

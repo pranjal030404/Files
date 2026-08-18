@@ -22,8 +22,8 @@
                                         <div class="input--group">
                                             <select name="country"class="select2 form-control form--control">
                                                 <option value="">@lang('Select One')</option>
-                                                @foreach ($countries as $country)
-                                                    <option value="{{ $country->country }}">{{ __($country->country) }}</option>
+                                                @foreach ($countries as $key => $country)
+                                                    <option value="{{ $country->country }}" @selected(old('country') == $country->country || (!old('country') && $key == 'IN'))>{{ __($country->country) }}</option>
                                                 @endforeach
                                             </select>
                                             <label class="form--label">@lang('Country')</label>

@@ -23,7 +23,7 @@
                                         <div class="input--group">
                                             <select class="form-select form-control form--control" name="country">
                                                 @foreach ($countries as $key => $country)
-                                                    <option data-mobile_code="{{ $country->dial_code }}" data-code="{{ $key }}" value="{{ $country->country }}">
+                                                    <option data-mobile_code="{{ $country->dial_code }}" data-code="{{ $key }}" value="{{ $country->country }}" @selected(old('country') == $country->country || (!old('country') && $key == 'IN'))>
                                                         {{ __($country->country) }}</option>
                                                 @endforeach
                                             </select>
