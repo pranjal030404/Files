@@ -3,7 +3,9 @@
     @include($activeTemplate . 'sections.banner')
     @if ($sections->secs != null)
         @foreach (json_decode($sections->secs) as $sec)
-            @include($activeTemplate . 'sections.' . $sec)
+            @unless($sec == 'mobile_app')
+                @include($activeTemplate . 'sections.' . $sec)
+            @endunless
         @endforeach
     @endif
 @endsection
